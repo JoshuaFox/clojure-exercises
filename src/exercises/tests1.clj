@@ -11,7 +11,7 @@
                                                 nil
                                                 {:contents [:trinket :treasure]}]}]
                          (get-in val '(:crossroads 2 :contents 1)))))
-  (assert (= {:a 1 :b 2 :c 3 :d 4 :e 5} (combine [{:a 1 :b 2} {:c 3} {:d 4 :e 5}])))  )
+  (assert (= {:a 1 :b 2 :c 3 :d 4 :e 5} (combine [{:a 1 :b 2} {:c 3} {:d 4 :e 5}]))))
 
 (assertions)
 

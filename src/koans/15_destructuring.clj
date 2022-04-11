@@ -54,6 +54,4 @@
                (conj
                  (vals test-address)
                  (str/join " " ["Test" "Testerson"]))
-               )
-     )
-  )
+               )))

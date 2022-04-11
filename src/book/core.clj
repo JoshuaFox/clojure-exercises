@@ -10,7 +10,7 @@
               {:title "Bartleby, the Scrivener" :author-id 123}
               {:title "Crime and Punishment" :author-id 567}
               {:title "Of Mice and Men" :author-id 248}
-              {:title "Harry Potter and the Chamber of Secrets" :author-id 135} )
+              {:title "Harry Potter and the Chamber of Secrets" :author-id 135})
 
       authors {123 "Herman Melville" 567 "Fyodor Dostoevsky"
                890 "William Shakespeare" 135 "J.K. Rowling"}]

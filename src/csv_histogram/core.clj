@@ -27,7 +27,7 @@
         gender-and-num (fn [gender-and-num-as-str] (map (fn [[gender num-as-str]]
                                                           [gender (Double/parseDouble num-as-str)]) gender-and-num-as-str))
         ]
-    (-> file-content (split-to-lines) (comma-separate-pairs) (gender-and-num)) ) )
+    (-> file-content (split-to-lines) (comma-separate-pairs) (gender-and-num))))
 
 
 
