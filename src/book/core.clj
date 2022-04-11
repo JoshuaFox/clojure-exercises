@@ -1,7 +1,6 @@
 (ns book.core)
 (ns book.core
-  (:require [clojure.test :refer [is run-tests with-test]])
-  )
+  (:require [clojure.test :refer [is run-tests with-test]]))
 
 ;TODO Write some tests
 
@@ -11,14 +10,11 @@
               {:title "Bartleby, the Scrivener" :author-id 123}
               {:title "Crime and Punishment" :author-id 567}
               {:title "Of Mice and Men" :author-id 248}
-              {:title "Harry Potter and the Chamber of Secrets" :author-id 135}
-              )
+              {:title "Harry Potter and the Chamber of Secrets" :author-id 135} )
 
       authors {123 "Herman Melville" 567 "Fyodor Dostoevsky"
-               890 "William Shakespeare" 135 "J.K. Rowling"}
-      ]
-  (def catalog {:books books :authors authors})
-  )
+               890 "William Shakespeare" 135 "J.K. Rowling"}]
+  (def catalog {:books books :authors authors}))
 
 (with-test (defn search [in-title catalog]
              "   - Parameter query is a substring of the title;
@@ -38,8 +34,7 @@
              )
            (is (some #(= "William Shakespeare" (:author %)) (search "and" catalog)))
            (is (not-any? #(= "Herman Melville" (:author %)) (search "and" catalog)))
-           (is (not-any? #(= "Of Mice and Men" (:title %)) (search "and" catalog)) "Exclude books with missing author")
-           )
+           (is (not-any? #(= "Of Mice and Men" (:title %)) (search "and" catalog)) "Exclude books with missing author"))
 
 
 (run-tests 'book.core)

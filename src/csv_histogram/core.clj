@@ -27,9 +27,7 @@
         gender-and-num (fn [gender-and-num-as-str] (map (fn [[gender num-as-str]]
                                                           [gender (Double/parseDouble num-as-str)]) gender-and-num-as-str))
         ]
-    (-> file-content (split-to-lines) (comma-separate-pairs) (gender-and-num))
-    )
-  )
+    (-> file-content (split-to-lines) (comma-separate-pairs) (gender-and-num)) ) )
 
 
 
@@ -72,8 +70,7 @@
                                       sorted (into (sorted-map) histogram-data) pad (fn [len s]
                                                                                       (str s (str/join (repeat (max 0 (- len (count s))) " "))))]
                                   (str/join "\n" (map #(str (pad pad-len (str (first %))) " " (str/join (repeat (second %) char))) sorted))))
-        one-gender-histogram-to-string (fn [gender counts] (histogram-data-to-str counts gender))
-        ]
+        one-gender-histogram-to-string (fn [gender counts] (histogram-data-to-str counts gender))]
     (str/join "\n\n" (map (fn [[gender stats]] (one-gender-histogram-to-string gender stats)) bucketed-by-gender))))
 
 (println (bucketed-by-gender-to-hist (bucketed-by-gender "genderage.csv")))
