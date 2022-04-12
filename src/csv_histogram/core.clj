@@ -5,7 +5,8 @@
 ;;
 
 (ns csv-histogram.core
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [file-util.core]))
 
 (defn scaled-floor [x & {precision :precision}]
   "Round down. precision indicates decimal points precison, so that 2 means round 2.222 to 2.22 and -2 means round 2222 to 2200"
@@ -13,12 +14,6 @@
     (let [scale (Math/pow 10 precision)]
       (-> x (* scale) Math/floor (/ scale)))
     (Math/floor x)))
-
-
-(defn readfile [filename]
-  "Load file into memory as string. All IO is here"
-  (slurp (str "./../../" filename)))
-
 
 (defn parse [file-content]
   "Convert raw input into basic data structure"
@@ -58,7 +53,7 @@
         group-by-gender (fn [gender-and-stats] (group-by #(first %) gender-and-stats))
         pairs (map (fn [[gender age-list]]
                      [gender (counts-by-bucket age-list)])
-                   (gender-to-age-list (group-by-gender (parse (readfile filename)))))]
+                   (gender-to-age-list (group-by-gender (parse (file-util.core/read-file filename)))))]
     (into {} pairs)))
 
 
