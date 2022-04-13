@@ -17,9 +17,9 @@
   (let [books (filter (fn [bk] (clojure.string/includes? (get bk "title") in-title))
                       (get catalog "books"))
         authors (get catalog "authors")
-        books-with-or-without-author (for [bk books]
-                                       {:title (get bk "title")
-                                        :author (get authors (str (get bk "author-id")))})
+        books-with-or-without-author (map (fn [bk]
+                                            {:title (get bk "title")
+                                             :author (get authors (str (get bk "author-id")))}) books)
         books-with-author (for [bk books-with-or-without-author :when (bk :author)] bk)  ]
 
     books-with-author))
