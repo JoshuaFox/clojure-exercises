@@ -1,4 +1,3 @@
-(ns book.core)
 (ns book.core
   (:require [clojure.data.json :as json]
             [file-util.core :refer [read-file]]))
