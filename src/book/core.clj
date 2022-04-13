@@ -20,7 +20,7 @@
                                           (let [{title "title"} bk] title) in-title))
                                (let [{books "books"} catalog] books))
         books-with-or-without-author (map (fn [bk] {:title  (get bk "title")
-                                             :author (get authors (str (get bk "author-id")))}) matching-books)
+                                                    :author (get authors (str (get bk "author-id")))}) matching-books)
         books-with-author (for [bk books-with-or-without-author :when (bk :author)] bk)]
 
     books-with-author))
