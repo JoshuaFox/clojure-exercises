@@ -14,13 +14,14 @@
       - An example of a book in that return-value list  is
         {:title \"Moby Dick\" :author \"Herman Melville\"}
       "
-  (let [books (filter (fn [bk] (clojure.string/includes? (get bk "title") in-title))
-                      (get catalog "books"))
-        authors (get catalog "authors")
-        books-with-or-without-author (map (fn [bk]
-                                            {:title (get bk "title")
-                                             :author (get authors (str (get bk "author-id")))}) books)
-        books-with-author (for [bk books-with-or-without-author :when (bk :author)] bk)  ]
+  (let [
+        {authors "authors"} catalog
+        matching-books (filter (fn [bk] (clojure.string/includes?
+                                          (let [{title "title"} bk] title) in-title))
+                               (let [{books "books"} catalog] books))
+        books-with-or-without-author (map (fn [bk] {:title  (get bk "title")
+                                             :author (get authors (str (get bk "author-id")))}) matching-books)
+        books-with-author (for [bk books-with-or-without-author :when (bk :author)] bk)]
 
     books-with-author))
 
