@@ -45,7 +45,7 @@
 
   "Surely we can implement our own by now"
   (= "You're really the Worst Picture, Final Destination 5... sorry."
-     (present (Razzie. "Worst Picture") "Final Destination 5") )
+     (present (Razzie. "Worst Picture") "Final Destination 5"))
   ;; ?? Why did I have to  remove with-out-str  as in this original koan:
   ;;
   ;;(= "You're really the Worst Picture, Final Destination 5... sorry."

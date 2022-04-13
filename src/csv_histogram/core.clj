@@ -5,7 +5,8 @@
 ;;
 
 (ns csv-histogram.core
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [file-util.core]))
 
 (defn scaled-floor [x & {precision :precision}]
   "Round down. precision indicates decimal points precison, so that 2 means round 2.222 to 2.22 and -2 means round 2222 to 2200"
@@ -14,12 +15,6 @@
       (-> x (* scale) Math/floor (/ scale)))
     (Math/floor x)))
 
-
-(defn readfile [filename]
-  "Load file into memory as string. All IO is here"
-  (slurp (str "./../../" filename)))
-
-
 (defn parse [file-content]
   "Convert raw input into basic data structure"
   (let [split-to-lines (fn [file-content] (str/split-lines file-content))
@@ -27,9 +22,7 @@
         gender-and-num (fn [gender-and-num-as-str] (map (fn [[gender num-as-str]]
                                                           [gender (Double/parseDouble num-as-str)]) gender-and-num-as-str))
         ]
-    (-> file-content (split-to-lines) (comma-separate-pairs) (gender-and-num))
-    )
-  )
+    (-> file-content (split-to-lines) (comma-separate-pairs) (gender-and-num))))
 
 
 
@@ -60,7 +53,7 @@
         group-by-gender (fn [gender-and-stats] (group-by #(first %) gender-and-stats))
         pairs (map (fn [[gender age-list]]
                      [gender (counts-by-bucket age-list)])
-                   (gender-to-age-list (group-by-gender (parse (readfile filename)))))]
+                   (gender-to-age-list (group-by-gender (parse (file-util.core/read-file filename)))))]
     (into {} pairs)))
 
 
@@ -72,8 +65,7 @@
                                       sorted (into (sorted-map) histogram-data) pad (fn [len s]
                                                                                       (str s (str/join (repeat (max 0 (- len (count s))) " "))))]
                                   (str/join "\n" (map #(str (pad pad-len (str (first %))) " " (str/join (repeat (second %) char))) sorted))))
-        one-gender-histogram-to-string (fn [gender counts] (histogram-data-to-str counts gender))
-        ]
+        one-gender-histogram-to-string (fn [gender counts] (histogram-data-to-str counts gender))]
     (str/join "\n\n" (map (fn [[gender stats]] (one-gender-histogram-to-string gender stats)) bucketed-by-gender))))
 
 (println (bucketed-by-gender-to-hist (bucketed-by-gender "genderage.csv")))
