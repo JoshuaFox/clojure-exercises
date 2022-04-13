@@ -1,9 +1,9 @@
 (ns book.core)
 (ns book.core
   (:require [clojure.data.json :as json]
-            [file-util.core]))
+            [file-util.core :refer [read-file]]))
 
-(def catalog (json/read-str (file-util.core/read-file "book-catalog.json")))
+(def catalog (json/read-str ( read-file "book-catalog.json")))
 
 (defn search [in-title catalog]
   "   - Parameter query is a substring of the title;
