@@ -5,9 +5,9 @@
 (def catalog (json/read-str ( read-file "book-catalog.json")))
 
 (defn search [in-title catalog]
-  "   - Parameter query is a substring of the title;
-      - Parameter catalog is a map {:books list-of-books :authors map-of-author-ids-to-author-name
-        A book in the list in the catalog takes the form {:title \"Moby Dick\" :author-id 123}.
+  "   - Parameter query is a substring to search for in  the title;
+      - Parameter catalog is a map {\"books\" list-of-books \"authors\" map-of-author-ids-to-author-name
+        A book in the list in the catalog takes the form {:title \"Moby Dick\" \"author-id\" 123}.
         The map of authors in the catalog takes the form  {123 \"Herman Melville\" 567 \"Fyodor Dostoevsky\" }
       - Returns list of books whose title contain the query.
       - An example of a book in that return-value list  is
