@@ -1,12 +1,5 @@
-;;  ?? Need to learn
-;; ** Repl: How to use Repl with this module rather than standalone
-;; ** Structural editing: I see the shortcuts. I need to grok them better
-;; ** Macros
-;;
-
 (ns csv-histogram.core
-  (:require [clojure.string :as str]
-            [file-util.core]))
+  (:require [clojure.string :as str] ))
 
 (defn scaled-floor [x & {precision :precision}]
   "Round down. precision indicates decimal points precison, so that 2 means round 2.222 to 2.22 and -2 means round 2222 to 2200"
@@ -53,7 +46,7 @@
         group-by-gender (fn [gender-and-stats] (group-by #(first %) gender-and-stats))
         pairs (map (fn [[gender age-list]]
                      [gender (counts-by-bucket age-list)])
-                   (gender-to-age-list (group-by-gender (parse (file-util.core/read-file filename)))))]
+                   (gender-to-age-list (group-by-gender (parse (slurp "../../genderage.csv" )))))]
     (into {} pairs)))
 
 
